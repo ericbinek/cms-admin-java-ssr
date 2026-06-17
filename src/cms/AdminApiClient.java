@@ -43,14 +43,18 @@ public final class AdminApiClient {
         switch (entity) {
             case "BlogPosting": return "blog-postings";
             case "Person": return "persons";
+            case "Organization": return "organizations";
             case "WebPage": return "web-pages";
             case "ImageObject": return "image-objects";
+            case "VideoObject": return "video-objects";
+            case "AudioObject": return "audio-objects";
             case "CategoryCode": return "category-codes";
             case "CategoryCodeSet": return "category-code-sets";
             case "DefinedTerm": return "defined-terms";
             case "DefinedTermSet": return "defined-term-sets";
             case "Comment": return "comments";
             case "WebSite": return "web-sites";
+            case "SiteNavigationElement": return "site-navigation-elements";
             default: throw new IllegalArgumentException("Unknown entity for plural lookup: " + entity);
         }
     }

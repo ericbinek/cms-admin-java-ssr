@@ -24,7 +24,10 @@ public final class ListView {
         PROPERTIES.add(new PropertySpec.Scalar("description", "Text", PropertySpec.Cardinality.ONE, false));
         PROPERTIES.add(new PropertySpec.Scalar("articleBody", "Text", PropertySpec.Cardinality.ONE, true));
         PROPERTIES.add(new PropertySpec.Ref("author", List.of("Person"), PropertySpec.Cardinality.ONE, true));
+        PROPERTIES.add(new PropertySpec.Ref("publisher", List.of("Organization"), PropertySpec.Cardinality.ONE, false));
         PROPERTIES.add(new PropertySpec.Ref("image", List.of("ImageObject"), PropertySpec.Cardinality.MANY, false));
+        PROPERTIES.add(new PropertySpec.Ref("video", List.of("VideoObject"), PropertySpec.Cardinality.MANY, false));
+        PROPERTIES.add(new PropertySpec.Ref("audio", List.of("AudioObject"), PropertySpec.Cardinality.MANY, false));
         PROPERTIES.add(new PropertySpec.Ref("keywords", List.of("DefinedTerm"), PropertySpec.Cardinality.MANY, false));
         PROPERTIES.add(new PropertySpec.Ref("about", List.of("CategoryCode"), PropertySpec.Cardinality.MANY, false));
         PROPERTIES.add(new PropertySpec.Scalar("datePublished", "DateTime", PropertySpec.Cardinality.ONE, false));

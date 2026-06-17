@@ -11,30 +11,38 @@ import java.util.regex.Pattern;
 
 public final class Layout {
 
-    public static final List<String> ENTITIES = List.of("BlogPosting", "Person", "WebPage", "ImageObject", "CategoryCode", "CategoryCodeSet", "DefinedTerm", "DefinedTermSet", "Comment", "WebSite");
+    public static final List<String> ENTITIES = List.of("BlogPosting", "Person", "Organization", "WebPage", "ImageObject", "VideoObject", "AudioObject", "CategoryCode", "CategoryCodeSet", "DefinedTerm", "DefinedTermSet", "Comment", "WebSite", "SiteNavigationElement");
     public static final Map<String, String> PLURALS = new LinkedHashMap<>();
     public static final Map<String, List<String>> DISPLAY_KEYS = new LinkedHashMap<>();
     static {
         PLURALS.put("BlogPosting", "blog-postings");
         PLURALS.put("Person", "persons");
+        PLURALS.put("Organization", "organizations");
         PLURALS.put("WebPage", "web-pages");
         PLURALS.put("ImageObject", "image-objects");
+        PLURALS.put("VideoObject", "video-objects");
+        PLURALS.put("AudioObject", "audio-objects");
         PLURALS.put("CategoryCode", "category-codes");
         PLURALS.put("CategoryCodeSet", "category-code-sets");
         PLURALS.put("DefinedTerm", "defined-terms");
         PLURALS.put("DefinedTermSet", "defined-term-sets");
         PLURALS.put("Comment", "comments");
         PLURALS.put("WebSite", "web-sites");
+        PLURALS.put("SiteNavigationElement", "site-navigation-elements");
         DISPLAY_KEYS.put("BlogPosting", List.of("headline", "alternativeHeadline"));
         DISPLAY_KEYS.put("Person", List.of("name", "givenName", "familyName"));
+        DISPLAY_KEYS.put("Organization", List.of("name", "legalName"));
         DISPLAY_KEYS.put("WebPage", List.of("headline"));
         DISPLAY_KEYS.put("ImageObject", List.of("name", "caption", "contentUrl"));
+        DISPLAY_KEYS.put("VideoObject", List.of("name", "caption", "contentUrl"));
+        DISPLAY_KEYS.put("AudioObject", List.of("name", "contentUrl"));
         DISPLAY_KEYS.put("CategoryCode", List.of("name", "codeValue"));
         DISPLAY_KEYS.put("CategoryCodeSet", List.of("name"));
         DISPLAY_KEYS.put("DefinedTerm", List.of("name", "termCode"));
         DISPLAY_KEYS.put("DefinedTermSet", List.of("name"));
         DISPLAY_KEYS.put("Comment", List.of("text"));
         DISPLAY_KEYS.put("WebSite", List.of("name"));
+        DISPLAY_KEYS.put("SiteNavigationElement", List.of("name"));
     }
 
     private static final Set<String> LONG_TEXT_HINT = Set.of("articleBody", "description", "text");

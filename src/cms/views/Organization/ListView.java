@@ -1,4 +1,4 @@
-package cms.views.WebSite;
+package cms.views.Organization;
 
 import cms.AdminApiClient;
 import cms.views.Layout;
@@ -12,19 +12,23 @@ import java.util.Map;
 
 public final class ListView {
 
-    public static final String ENTITY = "WebSite";
-    public static final String BASE = "/web-sites";
+    public static final String ENTITY = "Organization";
+    public static final String BASE = "/organizations";
     public static final int DEFAULT_LIMIT = 20;
     public static final List<PropertySpec> PROPERTIES = new ArrayList<>();
     public static final List<String> EXTRA_COLS = List.of("url");
 
     static {
         PROPERTIES.add(new PropertySpec.Scalar("name", "Text", PropertySpec.Cardinality.ONE, true));
+        PROPERTIES.add(new PropertySpec.Scalar("legalName", "Text", PropertySpec.Cardinality.ONE, false));
         PROPERTIES.add(new PropertySpec.Scalar("description", "Text", PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Scalar("url", "URL", PropertySpec.Cardinality.ONE, true));
-        PROPERTIES.add(new PropertySpec.Embed("inLanguage", "Language", PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Ref("image", List.of("ImageObject"), PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Ref("publisher", List.of("Organization"), PropertySpec.Cardinality.ONE, false));
+        PROPERTIES.add(new PropertySpec.Scalar("url", "URL", PropertySpec.Cardinality.ONE, false));
+        PROPERTIES.add(new PropertySpec.Scalar("email", "Text", PropertySpec.Cardinality.ONE, false));
+        PROPERTIES.add(new PropertySpec.Scalar("telephone", "Text", PropertySpec.Cardinality.ONE, false));
+        PROPERTIES.add(new PropertySpec.Ref("logo", List.of("ImageObject"), PropertySpec.Cardinality.ONE, false));
+        PROPERTIES.add(new PropertySpec.Scalar("foundingDate", "Date", PropertySpec.Cardinality.ONE, false));
+        PROPERTIES.add(new PropertySpec.Scalar("sameAs", "URL", PropertySpec.Cardinality.MANY, false));
+        PROPERTIES.add(new PropertySpec.Ref("parentOrganization", List.of("Organization"), PropertySpec.Cardinality.ONE, false));
     }
 
     private ListView() {}

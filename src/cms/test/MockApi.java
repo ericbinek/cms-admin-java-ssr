@@ -36,14 +36,18 @@ public final class MockApi {
     static {
         SCHEMAS.put("BlogPosting", Map.of("plural", "blog-postings", "required", List.of("headline", "articleBody", "author")));
         SCHEMAS.put("Person", Map.of("plural", "persons", "required", List.of("name")));
+        SCHEMAS.put("Organization", Map.of("plural", "organizations", "required", List.of("name")));
         SCHEMAS.put("WebPage", Map.of("plural", "web-pages", "required", List.of("headline")));
         SCHEMAS.put("ImageObject", Map.of("plural", "image-objects", "required", List.of("contentUrl")));
+        SCHEMAS.put("VideoObject", Map.of("plural", "video-objects", "required", List.of("contentUrl")));
+        SCHEMAS.put("AudioObject", Map.of("plural", "audio-objects", "required", List.of("contentUrl")));
         SCHEMAS.put("CategoryCode", Map.of("plural", "category-codes", "required", List.of("name", "codeValue", "inCodeSet")));
         SCHEMAS.put("CategoryCodeSet", Map.of("plural", "category-code-sets", "required", List.of("name")));
         SCHEMAS.put("DefinedTerm", Map.of("plural", "defined-terms", "required", List.of("name", "termCode", "inDefinedTermSet")));
         SCHEMAS.put("DefinedTermSet", Map.of("plural", "defined-term-sets", "required", List.of("name")));
         SCHEMAS.put("Comment", Map.of("plural", "comments", "required", List.of("text", "author", "about")));
         SCHEMAS.put("WebSite", Map.of("plural", "web-sites", "required", List.of("name", "url")));
+        SCHEMAS.put("SiteNavigationElement", Map.of("plural", "site-navigation-elements", "required", List.of("name", "url")));
     }
 
     public static final String ADMIN_USERNAME = "admin";

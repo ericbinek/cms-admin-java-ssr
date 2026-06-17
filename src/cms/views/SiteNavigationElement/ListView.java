@@ -1,4 +1,4 @@
-package cms.views.WebSite;
+package cms.views.SiteNavigationElement;
 
 import cms.AdminApiClient;
 import cms.views.Layout;
@@ -12,19 +12,18 @@ import java.util.Map;
 
 public final class ListView {
 
-    public static final String ENTITY = "WebSite";
-    public static final String BASE = "/web-sites";
+    public static final String ENTITY = "SiteNavigationElement";
+    public static final String BASE = "/site-navigation-elements";
     public static final int DEFAULT_LIMIT = 20;
     public static final List<PropertySpec> PROPERTIES = new ArrayList<>();
     public static final List<String> EXTRA_COLS = List.of("url");
 
     static {
         PROPERTIES.add(new PropertySpec.Scalar("name", "Text", PropertySpec.Cardinality.ONE, true));
-        PROPERTIES.add(new PropertySpec.Scalar("description", "Text", PropertySpec.Cardinality.ONE, false));
         PROPERTIES.add(new PropertySpec.Scalar("url", "URL", PropertySpec.Cardinality.ONE, true));
-        PROPERTIES.add(new PropertySpec.Embed("inLanguage", "Language", PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Ref("image", List.of("ImageObject"), PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Ref("publisher", List.of("Organization"), PropertySpec.Cardinality.ONE, false));
+        PROPERTIES.add(new PropertySpec.Scalar("description", "Text", PropertySpec.Cardinality.ONE, false));
+        PROPERTIES.add(new PropertySpec.Scalar("position", "Integer", PropertySpec.Cardinality.ONE, false));
+        PROPERTIES.add(new PropertySpec.Ref("isPartOf", List.of("SiteNavigationElement"), PropertySpec.Cardinality.ONE, false));
     }
 
     private ListView() {}

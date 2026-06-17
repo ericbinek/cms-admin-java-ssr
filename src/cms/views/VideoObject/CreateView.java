@@ -1,4 +1,4 @@
-package cms.views.WebPage;
+package cms.views.VideoObject;
 
 import cms.AdminApiClient;
 import cms.views.Layout;
@@ -11,23 +11,23 @@ import java.util.Map;
 
 public final class CreateView {
 
-    public static final String ENTITY = "WebPage";
-    public static final String BASE = "/web-pages";
+    public static final String ENTITY = "VideoObject";
+    public static final String BASE = "/video-objects";
     public static final List<PropertySpec> PROPERTIES = new ArrayList<>();
     static {
-        PROPERTIES.add(new PropertySpec.Scalar("headline", "Text", PropertySpec.Cardinality.ONE, true));
+        PROPERTIES.add(new PropertySpec.Scalar("name", "Text", PropertySpec.Cardinality.ONE, false));
         PROPERTIES.add(new PropertySpec.Scalar("description", "Text", PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Scalar("text", "Text", PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Ref("author", List.of("Person"), PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Ref("publisher", List.of("Organization"), PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Ref("primaryImageOfPage", List.of("ImageObject"), PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Ref("isPartOf", List.of("WebSite"), PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Scalar("datePublished", "DateTime", PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Scalar("dateModified", "DateTime", PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Scalar("dateCreated", "DateTime", PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Scalar("url", "URL", PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Embed("inLanguage", "Language", PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Enumerated("creativeWorkStatus", List.of("Draft", "Pending", "Published", "Archived"), PropertySpec.Cardinality.ONE, false));
+        PROPERTIES.add(new PropertySpec.Scalar("contentUrl", "URL", PropertySpec.Cardinality.ONE, true));
+        PROPERTIES.add(new PropertySpec.Scalar("embedUrl", "URL", PropertySpec.Cardinality.ONE, false));
+        PROPERTIES.add(new PropertySpec.Scalar("encodingFormat", "Text", PropertySpec.Cardinality.ONE, false));
+        PROPERTIES.add(new PropertySpec.Scalar("duration", "Duration", PropertySpec.Cardinality.ONE, false));
+        PROPERTIES.add(new PropertySpec.Scalar("videoQuality", "Text", PropertySpec.Cardinality.ONE, false));
+        PROPERTIES.add(new PropertySpec.Scalar("transcript", "Text", PropertySpec.Cardinality.ONE, false));
+        PROPERTIES.add(new PropertySpec.Scalar("caption", "Text", PropertySpec.Cardinality.ONE, false));
+        PROPERTIES.add(new PropertySpec.Scalar("uploadDate", "DateTime", PropertySpec.Cardinality.ONE, false));
+        PROPERTIES.add(new PropertySpec.Ref("creator", List.of("Person"), PropertySpec.Cardinality.ONE, false));
+        PROPERTIES.add(new PropertySpec.Ref("thumbnail", List.of("ImageObject"), PropertySpec.Cardinality.ONE, false));
+        PROPERTIES.add(new PropertySpec.Ref("productionCompany", List.of("Organization"), PropertySpec.Cardinality.ONE, false));
     }
 
     private CreateView() {}

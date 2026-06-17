@@ -27,6 +27,7 @@ public final class ListView {
         PROPERTIES.add(new PropertySpec.Scalar("url", "URL", PropertySpec.Cardinality.ONE, false));
         PROPERTIES.add(new PropertySpec.Scalar("description", "Text", PropertySpec.Cardinality.ONE, false));
         PROPERTIES.add(new PropertySpec.Ref("image", List.of("ImageObject"), PropertySpec.Cardinality.ONE, false));
+        PROPERTIES.add(new PropertySpec.Ref("worksFor", List.of("Organization"), PropertySpec.Cardinality.ONE, false));
         PROPERTIES.add(new PropertySpec.Scalar("jobTitle", "Text", PropertySpec.Cardinality.ONE, false));
         PROPERTIES.add(new PropertySpec.Scalar("sameAs", "URL", PropertySpec.Cardinality.MANY, false));
     }

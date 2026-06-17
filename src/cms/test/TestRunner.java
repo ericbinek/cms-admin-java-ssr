@@ -64,14 +64,18 @@ public final class TestRunner {
 
         run("BlogPosting", cms.test.BlogPostingAdminTest::run, ctx);
         run("Person", cms.test.PersonAdminTest::run, ctx);
+        run("Organization", cms.test.OrganizationAdminTest::run, ctx);
         run("WebPage", cms.test.WebPageAdminTest::run, ctx);
         run("ImageObject", cms.test.ImageObjectAdminTest::run, ctx);
+        run("VideoObject", cms.test.VideoObjectAdminTest::run, ctx);
+        run("AudioObject", cms.test.AudioObjectAdminTest::run, ctx);
         run("CategoryCode", cms.test.CategoryCodeAdminTest::run, ctx);
         run("CategoryCodeSet", cms.test.CategoryCodeSetAdminTest::run, ctx);
         run("DefinedTerm", cms.test.DefinedTermAdminTest::run, ctx);
         run("DefinedTermSet", cms.test.DefinedTermSetAdminTest::run, ctx);
         run("Comment", cms.test.CommentAdminTest::run, ctx);
         run("WebSite", cms.test.WebSiteAdminTest::run, ctx);
+        run("SiteNavigationElement", cms.test.SiteNavigationElementAdminTest::run, ctx);
 
         int total = PASS.get() + FAIL.get();
         System.out.println();

@@ -1,4 +1,4 @@
-package cms.views.WebPage;
+package cms.views.AudioObject;
 
 import cms.AdminApiClient;
 import cms.views.Layout;
@@ -9,28 +9,25 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public final class CreateView {
+public final class EditView {
 
-    public static final String ENTITY = "WebPage";
-    public static final String BASE = "/web-pages";
+    public static final String ENTITY = "AudioObject";
+    public static final String BASE = "/audio-objects";
     public static final List<PropertySpec> PROPERTIES = new ArrayList<>();
     static {
-        PROPERTIES.add(new PropertySpec.Scalar("headline", "Text", PropertySpec.Cardinality.ONE, true));
+        PROPERTIES.add(new PropertySpec.Scalar("name", "Text", PropertySpec.Cardinality.ONE, false));
         PROPERTIES.add(new PropertySpec.Scalar("description", "Text", PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Scalar("text", "Text", PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Ref("author", List.of("Person"), PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Ref("publisher", List.of("Organization"), PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Ref("primaryImageOfPage", List.of("ImageObject"), PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Ref("isPartOf", List.of("WebSite"), PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Scalar("datePublished", "DateTime", PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Scalar("dateModified", "DateTime", PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Scalar("dateCreated", "DateTime", PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Scalar("url", "URL", PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Embed("inLanguage", "Language", PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Enumerated("creativeWorkStatus", List.of("Draft", "Pending", "Published", "Archived"), PropertySpec.Cardinality.ONE, false));
+        PROPERTIES.add(new PropertySpec.Scalar("contentUrl", "URL", PropertySpec.Cardinality.ONE, true));
+        PROPERTIES.add(new PropertySpec.Scalar("encodingFormat", "Text", PropertySpec.Cardinality.ONE, false));
+        PROPERTIES.add(new PropertySpec.Scalar("duration", "Duration", PropertySpec.Cardinality.ONE, false));
+        PROPERTIES.add(new PropertySpec.Scalar("transcript", "Text", PropertySpec.Cardinality.ONE, false));
+        PROPERTIES.add(new PropertySpec.Scalar("uploadDate", "DateTime", PropertySpec.Cardinality.ONE, false));
+        PROPERTIES.add(new PropertySpec.Ref("creator", List.of("Person"), PropertySpec.Cardinality.ONE, false));
+        PROPERTIES.add(new PropertySpec.Ref("thumbnail", List.of("ImageObject"), PropertySpec.Cardinality.ONE, false));
+        PROPERTIES.add(new PropertySpec.Ref("productionCompany", List.of("Organization"), PropertySpec.Cardinality.ONE, false));
     }
 
-    private CreateView() {}
+    private EditView() {}
 
     @SuppressWarnings("unchecked")
     private static Map<String, List<Map<String, String>>> loadRefOptions(AdminApiClient api) {
@@ -79,9 +76,20 @@ public final class CreateView {
         AdminApiClient api = (AdminApiClient) opts.get("api");
         Object user = opts.get("user");
         Object csrf = opts.get("csrf");
-        Map<String, Object> values = (Map<String, Object>) opts.getOrDefault("values", Map.of());
+        String id = (String) opts.get("id");
+        Map<String, Object> values = (Map<String, Object>) opts.get("values");
         List<String> errors = (List<String>) opts.getOrDefault("errors", List.of());
         Map<String, List<String>> fieldErrors = (Map<String, List<String>>) opts.getOrDefault("fieldErrors", Map.of());
+        if (values == null) {
+            AdminApiClient.Response r = api.get(ENTITY, id);
+            if (r.status == 404) return Layout.errorPage(404, ENTITY + " not found.", user);
+            if (r.status != 200) {
+                String msg = "Failed to load.";
+                if (r.body instanceof Map && ((Map<?, ?>) r.body).get("message") instanceof String) msg = (String) ((Map<?, ?>) r.body).get("message");
+                return Layout.errorPage(r.status, msg, user);
+            }
+            values = Layout.formValuesFromItem((Map<String, Object>) r.body, PROPERTIES);
+        }
         Map<String, List<Map<String, String>>> refOptions = loadRefOptions(api);
         StringBuilder fields = new StringBuilder();
         for (PropertySpec p : PROPERTIES) {
@@ -93,14 +101,15 @@ public final class CreateView {
             for (String e : errors) errorBlock.append("<li>").append(Layout.escapeHtml(e)).append("</li>");
             errorBlock.append("</ul></div>");
         }
+        String idEsc = Layout.escapeHtml(id);
         String body = errorBlock + "\n" +
-            "<form method=\"POST\" action=\"" + BASE + "/new\">\n" +
+            "<form method=\"POST\" action=\"" + BASE + "/" + idEsc + "/edit\">\n" +
             Layout.csrfField(csrf) + "\n" +
             fields +
-            "<p><button type=\"submit\">Create</button> · <a href=\"" + BASE + "\">Cancel</a></p>\n" +
+            "<p><button type=\"submit\">Save</button> · <a href=\"" + BASE + "/" + idEsc + "\">Cancel</a></p>\n" +
             "</form>";
         Map<String, Object> opts2 = new LinkedHashMap<>();
-        opts2.put("title", "New " + ENTITY);
+        opts2.put("title", "Edit " + ENTITY);
         opts2.put("currentEntity", ENTITY);
         if (user != null) opts2.put("user", user);
         opts2.put("csrf", csrf);
@@ -113,15 +122,18 @@ public final class CreateView {
 
     public static Map<String, Object> handleSubmit(Map<String, Object> opts) {
         AdminApiClient api = (AdminApiClient) opts.get("api");
+        Object user = opts.get("user");
+        String id = (String) opts.get("id");
         String form = (String) opts.getOrDefault("form", "");
         Map<String, Object> payload = Layout.parseFormBody(form, PROPERTIES);
-        AdminApiClient.Response r = api.create(ENTITY, payload);
-        if (r.status == 201 && r.body instanceof Map && ((Map<?, ?>) r.body).get("id") != null) {
+        AdminApiClient.Response r = api.update(ENTITY, id, payload);
+        if (r.status == 200) {
             Map<String, Object> out = new LinkedHashMap<>();
             out.put("status", 303);
-            out.put("redirect", BASE + "/" + ((Map<?, ?>) r.body).get("id"));
+            out.put("redirect", BASE + "/" + id);
             return out;
         }
+        if (r.status == 404) return Layout.errorPage(404, ENTITY + " not found.", user);
         Map<String, Object> out = new LinkedHashMap<>();
         out.put("status", 400);
         out.put("errors", extractErrorList(r.body));

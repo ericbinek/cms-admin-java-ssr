@@ -62,14 +62,18 @@ public final class Helpers {
         switch (entity) {
             case "BlogPosting": return "blog-postings";
             case "Person": return "persons";
+            case "Organization": return "organizations";
             case "WebPage": return "web-pages";
             case "ImageObject": return "image-objects";
+            case "VideoObject": return "video-objects";
+            case "AudioObject": return "audio-objects";
             case "CategoryCode": return "category-codes";
             case "CategoryCodeSet": return "category-code-sets";
             case "DefinedTerm": return "defined-terms";
             case "DefinedTermSet": return "defined-term-sets";
             case "Comment": return "comments";
             case "WebSite": return "web-sites";
+            case "SiteNavigationElement": return "site-navigation-elements";
             default: throw new RuntimeException("Unknown entity: " + entity);
         }
     }
@@ -88,12 +92,27 @@ public final class Helpers {
             sample.put("name", "sample");
             return sample;
         }
+        case "Organization": {
+            Map<String, Object> sample = new LinkedHashMap<>();
+            sample.put("name", "sample");
+            return sample;
+        }
         case "WebPage": {
             Map<String, Object> sample = new LinkedHashMap<>();
             sample.put("headline", "sample");
             return sample;
         }
         case "ImageObject": {
+            Map<String, Object> sample = new LinkedHashMap<>();
+            sample.put("contentUrl", "https://example.com/x");
+            return sample;
+        }
+        case "VideoObject": {
+            Map<String, Object> sample = new LinkedHashMap<>();
+            sample.put("contentUrl", "https://example.com/x");
+            return sample;
+        }
+        case "AudioObject": {
             Map<String, Object> sample = new LinkedHashMap<>();
             sample.put("contentUrl", "https://example.com/x");
             return sample;
@@ -130,6 +149,12 @@ public final class Helpers {
             return sample;
         }
         case "WebSite": {
+            Map<String, Object> sample = new LinkedHashMap<>();
+            sample.put("name", "sample");
+            sample.put("url", "https://example.com/x");
+            return sample;
+        }
+        case "SiteNavigationElement": {
             Map<String, Object> sample = new LinkedHashMap<>();
             sample.put("name", "sample");
             sample.put("url", "https://example.com/x");

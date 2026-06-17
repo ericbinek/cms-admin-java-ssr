@@ -1,4 +1,4 @@
-package cms.views.Person;
+package cms.views.Organization;
 
 import cms.AdminApiClient;
 import cms.views.Layout;
@@ -11,21 +11,20 @@ import java.util.Map;
 
 public final class DetailView {
 
-    public static final String ENTITY = "Person";
-    public static final String BASE = "/persons";
+    public static final String ENTITY = "Organization";
+    public static final String BASE = "/organizations";
     public static final List<PropertySpec> PROPERTIES = new ArrayList<>();
     static {
         PROPERTIES.add(new PropertySpec.Scalar("name", "Text", PropertySpec.Cardinality.ONE, true));
-        PROPERTIES.add(new PropertySpec.Scalar("givenName", "Text", PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Scalar("familyName", "Text", PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Scalar("alternateName", "Text", PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Scalar("email", "Text", PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Scalar("url", "URL", PropertySpec.Cardinality.ONE, false));
+        PROPERTIES.add(new PropertySpec.Scalar("legalName", "Text", PropertySpec.Cardinality.ONE, false));
         PROPERTIES.add(new PropertySpec.Scalar("description", "Text", PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Ref("image", List.of("ImageObject"), PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Ref("worksFor", List.of("Organization"), PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Scalar("jobTitle", "Text", PropertySpec.Cardinality.ONE, false));
+        PROPERTIES.add(new PropertySpec.Scalar("url", "URL", PropertySpec.Cardinality.ONE, false));
+        PROPERTIES.add(new PropertySpec.Scalar("email", "Text", PropertySpec.Cardinality.ONE, false));
+        PROPERTIES.add(new PropertySpec.Scalar("telephone", "Text", PropertySpec.Cardinality.ONE, false));
+        PROPERTIES.add(new PropertySpec.Ref("logo", List.of("ImageObject"), PropertySpec.Cardinality.ONE, false));
+        PROPERTIES.add(new PropertySpec.Scalar("foundingDate", "Date", PropertySpec.Cardinality.ONE, false));
         PROPERTIES.add(new PropertySpec.Scalar("sameAs", "URL", PropertySpec.Cardinality.MANY, false));
+        PROPERTIES.add(new PropertySpec.Ref("parentOrganization", List.of("Organization"), PropertySpec.Cardinality.ONE, false));
     }
 
     private DetailView() {}
