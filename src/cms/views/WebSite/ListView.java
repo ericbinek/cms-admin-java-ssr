@@ -19,9 +19,9 @@ public final class ListView {
     public static final List<String> EXTRA_COLS = List.of("url");
 
     static {
-        PROPERTIES.add(new PropertySpec.Scalar("name", "Text", PropertySpec.Cardinality.ONE, true));
-        PROPERTIES.add(new PropertySpec.Scalar("description", "Text", PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Scalar("url", "URL", PropertySpec.Cardinality.ONE, true));
+        PROPERTIES.add(new PropertySpec.Scalar("name", "Text", PropertySpec.Cardinality.ONE, true, 256, false));
+        PROPERTIES.add(new PropertySpec.Scalar("description", "Text", PropertySpec.Cardinality.ONE, false, 5000, true));
+        PROPERTIES.add(new PropertySpec.Scalar("url", "URL", PropertySpec.Cardinality.ONE, true, 2048, false));
         PROPERTIES.add(new PropertySpec.Embed("inLanguage", "Language", PropertySpec.Cardinality.ONE, false));
         PROPERTIES.add(new PropertySpec.Ref("image", List.of("ImageObject"), PropertySpec.Cardinality.ONE, false));
         PROPERTIES.add(new PropertySpec.Ref("publisher", List.of("Organization"), PropertySpec.Cardinality.ONE, false));

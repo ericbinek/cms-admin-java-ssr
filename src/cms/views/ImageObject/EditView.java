@@ -15,14 +15,14 @@ public final class EditView {
     public static final String BASE = "/image-objects";
     public static final List<PropertySpec> PROPERTIES = new ArrayList<>();
     static {
-        PROPERTIES.add(new PropertySpec.Scalar("name", "Text", PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Scalar("caption", "Text", PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Scalar("description", "Text", PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Scalar("contentUrl", "URL", PropertySpec.Cardinality.ONE, true));
-        PROPERTIES.add(new PropertySpec.Scalar("encodingFormat", "Text", PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Scalar("uploadDate", "DateTime", PropertySpec.Cardinality.ONE, false));
+        PROPERTIES.add(new PropertySpec.Scalar("name", "Text", PropertySpec.Cardinality.ONE, false, 256, false));
+        PROPERTIES.add(new PropertySpec.Scalar("caption", "Text", PropertySpec.Cardinality.ONE, false, 1024, false));
+        PROPERTIES.add(new PropertySpec.Scalar("description", "Text", PropertySpec.Cardinality.ONE, false, 5000, true));
+        PROPERTIES.add(new PropertySpec.Scalar("contentUrl", "URL", PropertySpec.Cardinality.ONE, true, 2048, false));
+        PROPERTIES.add(new PropertySpec.Scalar("encodingFormat", "Text", PropertySpec.Cardinality.ONE, false, 128, false));
+        PROPERTIES.add(new PropertySpec.Scalar("uploadDate", "DateTime", PropertySpec.Cardinality.ONE, false, null, false));
         PROPERTIES.add(new PropertySpec.Ref("creator", List.of("Person"), PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Scalar("license", "URL", PropertySpec.Cardinality.ONE, false));
+        PROPERTIES.add(new PropertySpec.Scalar("license", "URL", PropertySpec.Cardinality.ONE, false, 2048, false));
     }
 
     private EditView() {}

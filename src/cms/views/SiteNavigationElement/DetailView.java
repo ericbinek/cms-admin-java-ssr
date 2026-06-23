@@ -15,10 +15,10 @@ public final class DetailView {
     public static final String BASE = "/site-navigation-elements";
     public static final List<PropertySpec> PROPERTIES = new ArrayList<>();
     static {
-        PROPERTIES.add(new PropertySpec.Scalar("name", "Text", PropertySpec.Cardinality.ONE, true));
-        PROPERTIES.add(new PropertySpec.Scalar("url", "URL", PropertySpec.Cardinality.ONE, true));
-        PROPERTIES.add(new PropertySpec.Scalar("description", "Text", PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Scalar("position", "Integer", PropertySpec.Cardinality.ONE, false));
+        PROPERTIES.add(new PropertySpec.Scalar("name", "Text", PropertySpec.Cardinality.ONE, true, 256, false));
+        PROPERTIES.add(new PropertySpec.Scalar("url", "URL", PropertySpec.Cardinality.ONE, true, 2048, false));
+        PROPERTIES.add(new PropertySpec.Scalar("description", "Text", PropertySpec.Cardinality.ONE, false, 5000, true));
+        PROPERTIES.add(new PropertySpec.Scalar("position", "Integer", PropertySpec.Cardinality.ONE, false, null, false));
         PROPERTIES.add(new PropertySpec.Ref("isPartOf", List.of("SiteNavigationElement"), PropertySpec.Cardinality.ONE, false));
     }
 

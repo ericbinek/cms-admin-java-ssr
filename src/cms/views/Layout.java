@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.regex.Pattern;
 
 public final class Layout {
@@ -45,7 +44,6 @@ public final class Layout {
         DISPLAY_KEYS.put("SiteNavigationElement", List.of("name"));
     }
 
-    private static final Set<String> LONG_TEXT_HINT = Set.of("articleBody", "description", "text");
     private static final Pattern FORM_ISO_PATTERN = Pattern.compile("^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}$");
 
     private Layout() {}
@@ -235,6 +233,9 @@ public final class Layout {
         String name = escapeHtml(prop.name());
         boolean required = prop.required();
         boolean many = prop.cardinality() == PropertySpec.Cardinality.MANY;
+        String maxLengthAttr = prop instanceof PropertySpec.Scalar sc && sc.maxLength() != null
+            ? " maxlength=\"" + sc.maxLength() + "\""
+            : "";
 
         if (prop instanceof PropertySpec.Enumerated en) {
             StringBuilder opts = new StringBuilder();
@@ -289,11 +290,11 @@ public final class Layout {
             return "<textarea id=\"" + fieldId + "\" name=\"" + name + "\" rows=\"3\"" + requiredAttr + ariaInvalid + ">" + escapeHtml(v) + "</textarea>";
         }
         String use = useOf(prop);
-        if ("Text".equals(use) && LONG_TEXT_HINT.contains(prop.name())) {
-            return "<textarea id=\"" + fieldId + "\" name=\"" + name + "\" rows=\"6\"" + requiredAttr + ariaInvalid + ">" + escapeHtml(value) + "</textarea>";
+        if ("Text".equals(use) && prop instanceof PropertySpec.Scalar sml && sml.multiline()) {
+            return "<textarea id=\"" + fieldId + "\" name=\"" + name + "\" rows=\"6\"" + maxLengthAttr + requiredAttr + ariaInvalid + ">" + escapeHtml(value) + "</textarea>";
         }
         if ("URL".equals(use)) {
-            return "<input id=\"" + fieldId + "\" name=\"" + name + "\" type=\"url\" value=\"" + escapeHtml(value) + "\"" + requiredAttr + ariaInvalid + ">";
+            return "<input id=\"" + fieldId + "\" name=\"" + name + "\" type=\"url\" value=\"" + escapeHtml(value) + "\"" + maxLengthAttr + requiredAttr + ariaInvalid + ">";
         }
         if ("Integer".equals(use)) {
             String v = value == null ? "" : escapeHtml(value);
@@ -315,7 +316,7 @@ public final class Layout {
             }
             return "<input id=\"" + fieldId + "\" name=\"" + name + "\" type=\"datetime-local\" value=\"" + escapeHtml(v) + "\"" + requiredAttr + ariaInvalid + ">";
         }
-        return "<input id=\"" + fieldId + "\" name=\"" + name + "\" type=\"text\" value=\"" + escapeHtml(value) + "\"" + requiredAttr + ariaInvalid + ">";
+        return "<input id=\"" + fieldId + "\" name=\"" + name + "\" type=\"text\" value=\"" + escapeHtml(value) + "\"" + maxLengthAttr + requiredAttr + ariaInvalid + ">";
     }
 
     private static Object coerceFormValue(Object raw, PropertySpec prop) {

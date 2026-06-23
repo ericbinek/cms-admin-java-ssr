@@ -15,9 +15,9 @@ public final class EditView {
     public static final String BASE = "/defined-term-sets";
     public static final List<PropertySpec> PROPERTIES = new ArrayList<>();
     static {
-        PROPERTIES.add(new PropertySpec.Scalar("name", "Text", PropertySpec.Cardinality.ONE, true));
-        PROPERTIES.add(new PropertySpec.Scalar("description", "Text", PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Scalar("url", "URL", PropertySpec.Cardinality.ONE, false));
+        PROPERTIES.add(new PropertySpec.Scalar("name", "Text", PropertySpec.Cardinality.ONE, true, 256, false));
+        PROPERTIES.add(new PropertySpec.Scalar("description", "Text", PropertySpec.Cardinality.ONE, false, 5000, true));
+        PROPERTIES.add(new PropertySpec.Scalar("url", "URL", PropertySpec.Cardinality.ONE, false, 2048, false));
     }
 
     private EditView() {}

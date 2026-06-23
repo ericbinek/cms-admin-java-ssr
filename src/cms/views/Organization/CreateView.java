@@ -15,15 +15,15 @@ public final class CreateView {
     public static final String BASE = "/organizations";
     public static final List<PropertySpec> PROPERTIES = new ArrayList<>();
     static {
-        PROPERTIES.add(new PropertySpec.Scalar("name", "Text", PropertySpec.Cardinality.ONE, true));
-        PROPERTIES.add(new PropertySpec.Scalar("legalName", "Text", PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Scalar("description", "Text", PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Scalar("url", "URL", PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Scalar("email", "Text", PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Scalar("telephone", "Text", PropertySpec.Cardinality.ONE, false));
+        PROPERTIES.add(new PropertySpec.Scalar("name", "Text", PropertySpec.Cardinality.ONE, true, 256, false));
+        PROPERTIES.add(new PropertySpec.Scalar("legalName", "Text", PropertySpec.Cardinality.ONE, false, 256, false));
+        PROPERTIES.add(new PropertySpec.Scalar("description", "Text", PropertySpec.Cardinality.ONE, false, 5000, true));
+        PROPERTIES.add(new PropertySpec.Scalar("url", "URL", PropertySpec.Cardinality.ONE, false, 2048, false));
+        PROPERTIES.add(new PropertySpec.Scalar("email", "Text", PropertySpec.Cardinality.ONE, false, 320, false));
+        PROPERTIES.add(new PropertySpec.Scalar("telephone", "Text", PropertySpec.Cardinality.ONE, false, 64, false));
         PROPERTIES.add(new PropertySpec.Ref("logo", List.of("ImageObject"), PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Scalar("foundingDate", "Date", PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Scalar("sameAs", "URL", PropertySpec.Cardinality.MANY, false));
+        PROPERTIES.add(new PropertySpec.Scalar("foundingDate", "Date", PropertySpec.Cardinality.ONE, false, null, false));
+        PROPERTIES.add(new PropertySpec.Scalar("sameAs", "URL", PropertySpec.Cardinality.MANY, false, 2048, false));
         PROPERTIES.add(new PropertySpec.Ref("parentOrganization", List.of("Organization"), PropertySpec.Cardinality.ONE, false));
     }
 

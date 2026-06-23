@@ -15,14 +15,14 @@ public final class EditView {
     public static final String BASE = "/comments";
     public static final List<PropertySpec> PROPERTIES = new ArrayList<>();
     static {
-        PROPERTIES.add(new PropertySpec.Scalar("text", "Text", PropertySpec.Cardinality.ONE, true));
+        PROPERTIES.add(new PropertySpec.Scalar("text", "Text", PropertySpec.Cardinality.ONE, true, 10000, true));
         PROPERTIES.add(new PropertySpec.Ref("author", List.of("Person"), PropertySpec.Cardinality.ONE, true));
         PROPERTIES.add(new PropertySpec.Ref("about", List.of("BlogPosting"), PropertySpec.Cardinality.ONE, true));
         PROPERTIES.add(new PropertySpec.Ref("parentItem", List.of("Comment"), PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Scalar("dateCreated", "DateTime", PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Scalar("dateModified", "DateTime", PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Scalar("upvoteCount", "Integer", PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Scalar("downvoteCount", "Integer", PropertySpec.Cardinality.ONE, false));
+        PROPERTIES.add(new PropertySpec.Scalar("dateCreated", "DateTime", PropertySpec.Cardinality.ONE, false, null, false));
+        PROPERTIES.add(new PropertySpec.Scalar("dateModified", "DateTime", PropertySpec.Cardinality.ONE, false, null, false));
+        PROPERTIES.add(new PropertySpec.Scalar("upvoteCount", "Integer", PropertySpec.Cardinality.ONE, false, null, false));
+        PROPERTIES.add(new PropertySpec.Scalar("downvoteCount", "Integer", PropertySpec.Cardinality.ONE, false, null, false));
         PROPERTIES.add(new PropertySpec.Enumerated("creativeWorkStatus", List.of("Pending", "Approved", "Spam", "Trash"), PropertySpec.Cardinality.ONE, false));
     }
 

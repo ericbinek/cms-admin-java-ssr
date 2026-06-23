@@ -15,16 +15,16 @@ public final class EditView {
     public static final String BASE = "/video-objects";
     public static final List<PropertySpec> PROPERTIES = new ArrayList<>();
     static {
-        PROPERTIES.add(new PropertySpec.Scalar("name", "Text", PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Scalar("description", "Text", PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Scalar("contentUrl", "URL", PropertySpec.Cardinality.ONE, true));
-        PROPERTIES.add(new PropertySpec.Scalar("embedUrl", "URL", PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Scalar("encodingFormat", "Text", PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Scalar("duration", "Duration", PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Scalar("videoQuality", "Text", PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Scalar("transcript", "Text", PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Scalar("caption", "Text", PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Scalar("uploadDate", "DateTime", PropertySpec.Cardinality.ONE, false));
+        PROPERTIES.add(new PropertySpec.Scalar("name", "Text", PropertySpec.Cardinality.ONE, false, 256, false));
+        PROPERTIES.add(new PropertySpec.Scalar("description", "Text", PropertySpec.Cardinality.ONE, false, 5000, true));
+        PROPERTIES.add(new PropertySpec.Scalar("contentUrl", "URL", PropertySpec.Cardinality.ONE, true, 2048, false));
+        PROPERTIES.add(new PropertySpec.Scalar("embedUrl", "URL", PropertySpec.Cardinality.ONE, false, 2048, false));
+        PROPERTIES.add(new PropertySpec.Scalar("encodingFormat", "Text", PropertySpec.Cardinality.ONE, false, 128, false));
+        PROPERTIES.add(new PropertySpec.Scalar("duration", "Duration", PropertySpec.Cardinality.ONE, false, null, false));
+        PROPERTIES.add(new PropertySpec.Scalar("videoQuality", "Text", PropertySpec.Cardinality.ONE, false, 128, false));
+        PROPERTIES.add(new PropertySpec.Scalar("transcript", "Text", PropertySpec.Cardinality.ONE, false, 65536, true));
+        PROPERTIES.add(new PropertySpec.Scalar("caption", "Text", PropertySpec.Cardinality.ONE, false, 1024, false));
+        PROPERTIES.add(new PropertySpec.Scalar("uploadDate", "DateTime", PropertySpec.Cardinality.ONE, false, null, false));
         PROPERTIES.add(new PropertySpec.Ref("creator", List.of("Person"), PropertySpec.Cardinality.ONE, false));
         PROPERTIES.add(new PropertySpec.Ref("thumbnail", List.of("ImageObject"), PropertySpec.Cardinality.ONE, false));
         PROPERTIES.add(new PropertySpec.Ref("productionCompany", List.of("Organization"), PropertySpec.Cardinality.ONE, false));

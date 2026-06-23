@@ -19,10 +19,10 @@ public final class ListView {
     public static final List<String> EXTRA_COLS = List.of("datePublished");
 
     static {
-        PROPERTIES.add(new PropertySpec.Scalar("headline", "Text", PropertySpec.Cardinality.ONE, true));
-        PROPERTIES.add(new PropertySpec.Scalar("alternativeHeadline", "Text", PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Scalar("description", "Text", PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Scalar("articleBody", "Text", PropertySpec.Cardinality.ONE, true));
+        PROPERTIES.add(new PropertySpec.Scalar("headline", "Text", PropertySpec.Cardinality.ONE, true, 256, false));
+        PROPERTIES.add(new PropertySpec.Scalar("alternativeHeadline", "Text", PropertySpec.Cardinality.ONE, false, 256, false));
+        PROPERTIES.add(new PropertySpec.Scalar("description", "Text", PropertySpec.Cardinality.ONE, false, 5000, true));
+        PROPERTIES.add(new PropertySpec.Scalar("articleBody", "Text", PropertySpec.Cardinality.ONE, true, 65536, true));
         PROPERTIES.add(new PropertySpec.Ref("author", List.of("Person"), PropertySpec.Cardinality.ONE, true));
         PROPERTIES.add(new PropertySpec.Ref("publisher", List.of("Organization"), PropertySpec.Cardinality.ONE, false));
         PROPERTIES.add(new PropertySpec.Ref("image", List.of("ImageObject"), PropertySpec.Cardinality.MANY, false));
@@ -30,13 +30,13 @@ public final class ListView {
         PROPERTIES.add(new PropertySpec.Ref("audio", List.of("AudioObject"), PropertySpec.Cardinality.MANY, false));
         PROPERTIES.add(new PropertySpec.Ref("keywords", List.of("DefinedTerm"), PropertySpec.Cardinality.MANY, false));
         PROPERTIES.add(new PropertySpec.Ref("about", List.of("CategoryCode"), PropertySpec.Cardinality.MANY, false));
-        PROPERTIES.add(new PropertySpec.Scalar("datePublished", "DateTime", PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Scalar("dateModified", "DateTime", PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Scalar("dateCreated", "DateTime", PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Scalar("url", "URL", PropertySpec.Cardinality.ONE, false));
+        PROPERTIES.add(new PropertySpec.Scalar("datePublished", "DateTime", PropertySpec.Cardinality.ONE, false, null, false));
+        PROPERTIES.add(new PropertySpec.Scalar("dateModified", "DateTime", PropertySpec.Cardinality.ONE, false, null, false));
+        PROPERTIES.add(new PropertySpec.Scalar("dateCreated", "DateTime", PropertySpec.Cardinality.ONE, false, null, false));
+        PROPERTIES.add(new PropertySpec.Scalar("url", "URL", PropertySpec.Cardinality.ONE, false, 2048, false));
         PROPERTIES.add(new PropertySpec.Embed("inLanguage", "Language", PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Scalar("isAccessibleForFree", "Boolean", PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Scalar("wordCount", "Integer", PropertySpec.Cardinality.ONE, false));
+        PROPERTIES.add(new PropertySpec.Scalar("isAccessibleForFree", "Boolean", PropertySpec.Cardinality.ONE, false, null, false));
+        PROPERTIES.add(new PropertySpec.Scalar("wordCount", "Integer", PropertySpec.Cardinality.ONE, false, null, false));
         PROPERTIES.add(new PropertySpec.Enumerated("creativeWorkStatus", List.of("Draft", "Pending", "Published", "Archived"), PropertySpec.Cardinality.ONE, false));
     }
 

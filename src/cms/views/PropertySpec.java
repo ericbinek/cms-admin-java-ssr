@@ -18,7 +18,7 @@ public sealed interface PropertySpec {
 
     enum Cardinality { ONE, MANY }
 
-    record Scalar(String name, String use, Cardinality cardinality, boolean required) implements PropertySpec {}
+    record Scalar(String name, String use, Cardinality cardinality, boolean required, Integer maxLength, boolean multiline) implements PropertySpec {}
 
     record Enumerated(String name, List<String> values, Cardinality cardinality, boolean required) implements PropertySpec {}
 

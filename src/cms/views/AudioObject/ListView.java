@@ -19,13 +19,13 @@ public final class ListView {
     public static final List<String> EXTRA_COLS = List.of("contentUrl");
 
     static {
-        PROPERTIES.add(new PropertySpec.Scalar("name", "Text", PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Scalar("description", "Text", PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Scalar("contentUrl", "URL", PropertySpec.Cardinality.ONE, true));
-        PROPERTIES.add(new PropertySpec.Scalar("encodingFormat", "Text", PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Scalar("duration", "Duration", PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Scalar("transcript", "Text", PropertySpec.Cardinality.ONE, false));
-        PROPERTIES.add(new PropertySpec.Scalar("uploadDate", "DateTime", PropertySpec.Cardinality.ONE, false));
+        PROPERTIES.add(new PropertySpec.Scalar("name", "Text", PropertySpec.Cardinality.ONE, false, 256, false));
+        PROPERTIES.add(new PropertySpec.Scalar("description", "Text", PropertySpec.Cardinality.ONE, false, 5000, true));
+        PROPERTIES.add(new PropertySpec.Scalar("contentUrl", "URL", PropertySpec.Cardinality.ONE, true, 2048, false));
+        PROPERTIES.add(new PropertySpec.Scalar("encodingFormat", "Text", PropertySpec.Cardinality.ONE, false, 128, false));
+        PROPERTIES.add(new PropertySpec.Scalar("duration", "Duration", PropertySpec.Cardinality.ONE, false, null, false));
+        PROPERTIES.add(new PropertySpec.Scalar("transcript", "Text", PropertySpec.Cardinality.ONE, false, 65536, true));
+        PROPERTIES.add(new PropertySpec.Scalar("uploadDate", "DateTime", PropertySpec.Cardinality.ONE, false, null, false));
         PROPERTIES.add(new PropertySpec.Ref("creator", List.of("Person"), PropertySpec.Cardinality.ONE, false));
         PROPERTIES.add(new PropertySpec.Ref("thumbnail", List.of("ImageObject"), PropertySpec.Cardinality.ONE, false));
         PROPERTIES.add(new PropertySpec.Ref("productionCompany", List.of("Organization"), PropertySpec.Cardinality.ONE, false));
