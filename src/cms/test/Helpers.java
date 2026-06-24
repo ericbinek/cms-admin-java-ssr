@@ -85,6 +85,7 @@ public final class Helpers {
             sample.put("headline", "sample");
             sample.put("articleBody", "sample");
             sample.put("author", Map.of("__ref", "Person"));
+            sample.put("url", "https://example.com/x");
             return sample;
         }
         case "Person": {

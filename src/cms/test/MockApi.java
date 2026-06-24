@@ -34,7 +34,7 @@ public final class MockApi {
 
     public static final Map<String, Map<String, Object>> SCHEMAS = new LinkedHashMap<>();
     static {
-        SCHEMAS.put("BlogPosting", Map.of("plural", "blog-postings", "required", List.of("headline", "articleBody", "author")));
+        SCHEMAS.put("BlogPosting", Map.of("plural", "blog-postings", "required", List.of("headline", "articleBody", "author", "url")));
         SCHEMAS.put("Person", Map.of("plural", "persons", "required", List.of("name")));
         SCHEMAS.put("Organization", Map.of("plural", "organizations", "required", List.of("name")));
         SCHEMAS.put("WebPage", Map.of("plural", "web-pages", "required", List.of("headline")));
